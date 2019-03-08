@@ -34,14 +34,17 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         currentLocation = locations[0]
        var coord = currentLocation.coordinate
         print(coord)
-        
     }
 
     @IBAction func whenZoomButtonPressed(_ sender: Any) {
-        
+        let center = currentLocation.coordinate
+        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let region = MKCoordinateRegion(center: center, span: span)
+        mapView.setRegion(region, animated: true)
     }
     
     @IBAction func whenSearchButtonPressed(_ sender: Any) {
+        
     }
     
     
