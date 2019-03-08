@@ -16,6 +16,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation!
+    var parksArray:[MKMapItem] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -38,12 +39,29 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBAction func whenZoomButtonPressed(_ sender: Any) {
         let center = currentLocation.coordinate
-        let span = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: center, span: span)
         mapView.setRegion(region, animated: true)
     }
     
     @IBAction func whenSearchButtonPressed(_ sender: Any) {
+        let request = MKLocalSearch.Request()
+        request.naturalLanguageQuery = "parks"
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        request.region = MKCoordinateRegion(center: currentLocation.coordinate, span: span)
+        
+        let search = MKLocalSearch(request: request)
+        search.start { (response, error) in
+            <#code#>
+        }
+        //I pressed enter on highlighted(closure)
+        
+        
+        
+        
+        
+        
+        
         
     }
     
