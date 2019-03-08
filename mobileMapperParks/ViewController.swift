@@ -34,7 +34,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations[0]
        var coord = currentLocation.coordinate
-        print(coord)
+        
     }
 
     @IBAction func whenZoomButtonPressed(_ sender: Any) {
@@ -52,8 +52,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         let search = MKLocalSearch(request: request)
         search.start { (response, error) in
-            <#code#>
+            print(response)
         }
+        
         //I pressed enter on highlighted(closure)
         
         
