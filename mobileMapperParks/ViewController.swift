@@ -12,11 +12,12 @@ import MapKit
 //Packages
 //More would take up a lot of space
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation!
     var parksArray:[MKMapItem] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -28,9 +29,20 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         
         
     }
-    // func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        // It can track when a user has left a certain area or radius.
-   // }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isEqual(mapView.userLocation){
+            return nil
+        }
+        let pin = MKPinAnnotationView(annotation: annotation, reuseIdentifier: nil)
+        pin.canShowCallout = true
+        return pin
+        
+    }
+   
+    
+    
+  
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations[0]
        var coord = currentLocation.coordinate
@@ -46,29 +58,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBAction func whenSearchButtonPressed(_ sender: Any) {
         let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = "parks"
+        request.naturalLanguageQuery = "pizza"
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         request.region = MKCoordinateRegion(center: currentLocation.coordinate, span: span)
         
         let search = MKLocalSearch(request: request)
         search.start { (response, error) in
-            print(response)
+            //I pressed enter on highlighted(closure)
+            guard let response = response else {return}
+            // opposite of if let, if there is no data in response, do this.
+            for mapItem in response.mapItems {
+                self.parksArray.append(mapItem)
+                let annotation = MKPointAnnotation()
+                //pins on maps are annotation
+                annotation.title = mapItem.name
+                annotation.coordinate = mapItem.placemark.coordinate
+                self.mapView.addAnnotation(annotation)
+                
+                
+            }
         }
-        
-        //I pressed enter on highlighted(closure)
-        
-        
-        
-        
-        
-        
-        
-        
+
     }
-    
-    
-    
-    
-    
 }
 

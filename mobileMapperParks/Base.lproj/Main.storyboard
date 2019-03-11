@@ -32,11 +32,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="nUk-OJ-WpW">
+                        <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" title="Zoom" id="dnc-yj-C1i">
                             <connections>
                                 <action selector="whenZoomButtonPressed:" destination="BYZ-38-t0r" id="ADx-f9-aTs"/>
                             </connections>
                         </barButtonItem>
+                        <textField key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="R6W-32-AYs">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="bIO-mu-GdL">
                             <connections>
                                 <action selector="whenSearchButtonPressed:" destination="BYZ-38-t0r" id="AKN-Jp-OWs"/>
